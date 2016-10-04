@@ -1,2 +1,2 @@
 # zjp
-Zaawansowane języki programowani
+Zaawansowane języki programowania
