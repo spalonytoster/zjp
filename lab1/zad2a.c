@@ -8,12 +8,13 @@ int main(int argc, char* argv[]) {
   int i;
   long conv;
   char *p;
+  long sum = 0;
 
   for (i = 1; i < argc; i++) {
     conv = strtol(argv[i], &p, 10);
-    printf("%i\n", conv);
+    sum += conv;
   }
-  printf("%s\n", "Hello World!");
+  printf("%ld\n", sum);
 
   return 0;
 };
