@@ -13,39 +13,32 @@ const limits = {
   MAX: 1000
 };
 
-let generate = (mode, amount, min, max) => {
-  let result = [];
-  if (typeof min === 'undefined') {
-    min = limits.MIN;
-  }
-  if (typeof max === 'undefined') {
-    max = limits.MAX;
-  }
-  for (let i = 0; i < amount; i++) {
-    let number = Math.random() * (max-min+1) + min;
-    if (mode.toLowerCase() === modes.INTEGER) {
-      number = Math.floor(number);
+module.exports = {
+  generate: (mode, amount, min, max) => {
+    let result = [];
+    if (typeof min === 'undefined') {
+      min = limits.MIN;
     }
-    else if (mode.toLowerCase() !== modes.FLOAT) {
-      new Error('Valid modes are: INTEGER and FLOAT');
+    if (typeof max === 'undefined') {
+      max = limits.MAX;
     }
-    result.push(number);
+    for (let i = 0; i < amount; i++) {
+      let number = Math.random() * (max-min+1) + min;
+      if (mode.toLowerCase() === modes.INTEGER) {
+        number = Math.floor(number);
+      }
+      else if (mode.toLowerCase() !== modes.FLOAT) {
+        new Error('Valid modes are: INTEGER and FLOAT');
+      }
+      result.push(number);
+    }
+    return result;
+  },
+
+  saveToFile: (filename, text) => {
+    fs.writeFile(filename, text, 'utf-8', (err) => {
+      if (err) throw err;
+      console.log(`Saved '${filename}'`);
+    });
   }
-  return result;
 };
-
-let saveToFile = (filename, text) => {
-  fs.writeFile(filename, text, 'utf-8', (err) => {
-    if (err) throw err;
-    console.log(`Saved to '${filename}'`);
-  });
-};
-
-let mode     = process.argv[2],
-    amount   = process.argv[3],
-    filename = process.argv[4],
-    min      = process.argv[5],
-    max      = process.argv[6];
-
-// Main program
-saveToFile(filename, generate(mode, amount, min, max));

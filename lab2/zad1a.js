@@ -16,7 +16,8 @@ amounts.forEach((amount) => {
   let data = '';
   data += generator.generate(mode, amount, min, max);
   data += '\n';
-  data += generator.generate(mode, amount, min, max);
+  // data += generator.generate(mode, amount, min, max);
+  data += generator.generate(mode, amount-100, min, max); // vector B has 100 less elements
   dataSets.push(data);
 });
 
