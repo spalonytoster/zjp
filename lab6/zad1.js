@@ -13,6 +13,8 @@ const STATE = {
   ERR: 'ERR'
 };
 
+const EOF = 'EOF';
+
 let state, lexeme, lexemes;
 
 const rl = readline.createInterface({
@@ -20,17 +22,10 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-function takeInput() {
-  rl.question('> enter input:\n> ', (answer) => {
-    parse(answer);
-    takeInput();
-  });
-}
-
-function determineState(char, currentState) {
-
+function determineState(char, state) {
+  console.log(`state: ${state}(${char})`);
   // STATE START
-  if (currentState === STATE.START) {
+  if (state === STATE.START) {
     if (lexeme !== '') {
       lexemes.push(lexeme);
     }
@@ -45,33 +40,46 @@ function determineState(char, currentState) {
   }
 
   // STATE A
-  if (currentState === STATE.A && char === 'b') {
+  if (state === STATE.A && char === 'b') {
     return STATE.AB;
   }
 
   // STATE AB
-  if (currentState === STATE.AB && char === 'a') {
+  if (state === STATE.AB && char === 'a') {
     return STATE.ABA;
   }
 
   // STATE ABA
-  if (currentState === STATE.ABA) {
-    return determineState(char, STATE.START);
+  if (state === STATE.ABA) {
+    if (isLetter(char) || isNumber(char)) {
+      return determineState(char, STATE.START);
+    }
+    if (isEOF(char)) {
+      return STATE.END;
+    }
   }
 
   // STATE NUM
-  if (currentState === STATE.NUM) {
+  if (state === STATE.NUM) {
     if (isNumber(char)) {
       return STATE.NUM;
     }
-    else {
+    if (isLetter(char)) {
       return determineState(char, STATE.START);
+    }
+    if (isEOF(char)) {
+      return STATE.END;
     }
   }
 
   // STATE ERR
   if (state === STATE.ERR) {
-    console.log('> wrong input');
+    return STATE.ERR;
+  }
+
+  // STATE END
+  if (state === STATE.END) {
+    return STATE.END;
   }
 
   return STATE.ERR;
@@ -82,35 +90,53 @@ function parse(input) {
   lexeme = '';
   lexemes = [];
 
-  // console.log('to parse: ' + input);
-  console.log('state: ' + state);
-
   for (let i = 0; i < input.length; i++) {
     let currentChar = input.charAt(i);
     state = determineState(currentChar, state);
     if (state === STATE.ERR) {
-      console.log('> wrong input');
-      return;
+      break;
     }
     lexeme += currentChar;
-    console.log('state: ' + state);
     // console.log('currentChar: ' + currentChar);
     // console.log('lexeme: ' + lexeme);
   }
-  state = STATE.END;
+  state = determineState(EOF, state);
   console.log('state: ' + state);
-  lexemes.push(lexeme);
+
+  if (state === STATE.END) {
+    lexemes.push(lexeme);
+  }
+
+  printLexemes(lexemes);
+
+  if (state !== STATE.END) {
+    console.log('> wrong input');
+  }
+}
+
+function isLetter(str) {
+  if (!str) return false;
+  return str.length === 1 && str.match(/[a-z]/i);
+}
+
+function isNumber(str) {
+  if (!str) return false;
+  return str.length === 1 && str.match(/[0-9]/i);
+}
+
+function isEOF(char) {
+  return char === EOF;
+}
+
+function printLexemes(lexemes) {
   lexemes.forEach((lexeme) => {
     console.log('> leks: ' + lexeme);
   });
 }
 
-function isLetter(str) {
-  return str.length === 1 && str.match(/[a-z]/i);
-}
-
-function isNumber(str) {
-  return str.length === 1 && str.match(/[0-9]/i);
-}
-
-takeInput();
+(function takeInput() {
+  rl.question('> enter input:\n> ', (answer) => {
+    parse(answer);
+    takeInput();
+  });
+})();
