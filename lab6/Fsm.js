@@ -12,7 +12,7 @@ Fsm.prototype.reset = function reset() {
   this.state = STATE.START;
 };
 
-Fsm.prototype.doTransition = function doTransition(input) {
+Fsm.prototype.makeTransition = function makeTransition(input) {
   let _this = this,
       visitedStates = [];
 

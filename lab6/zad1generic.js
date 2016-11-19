@@ -23,10 +23,10 @@ function parse(input) {
 
   for (let i = 0; i < input.length; i++) {
     let currentChar = input.charAt(i);
-    fsm.doTransition(currentChar);
+    fsm.makeTransition(currentChar);
 
     if (fsm.state === State.START) {
-      fsm.doTransition(currentChar);
+      fsm.makeTransition(currentChar);
       if (lexeme !== '') {
         lexemes.push(lexeme);
         lexeme = '';
@@ -39,7 +39,7 @@ function parse(input) {
     // console.log('currentChar: ' + currentChar);
     // console.log('lexeme: ' + lexeme);
   }
-  fsm.doTransition(EOF);
+  fsm.makeTransition(EOF);
   console.log('state: ' + fsm.state);
 
   if (fsm.state === State.END) {
