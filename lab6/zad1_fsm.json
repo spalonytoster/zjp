@@ -1,0 +1,55 @@
+{
+  "START": {
+    "transitions": [
+      {
+        "input": "a",
+        "targetState": "A"
+      }, {
+        "input": "[0-9]",
+        "targetState": "NUM"
+      }
+    ]
+  },
+  "NUM": {
+    "transitions": [
+      {
+        "input": "[0-9]",
+        "targetState": "NUM"
+      }, {
+        "input": "[a-z]",
+        "targetState": "START"
+      }, {
+        "input": "EOF",
+        "targetState": "END"
+      }
+    ]
+  },
+  "A": {
+    "transitions": [
+      {
+        "input": "b",
+        "targetState": "AB"
+      }
+    ]
+  },
+  "AB": {
+    "transitions": [
+      {
+        "input": "a",
+        "targetState": "ABA"
+      }
+    ]
+  },
+  "ABA": {
+    "transitions": [
+      {
+        "input": "[0-9]|a",
+        "targetState": "START"
+      },
+      {
+        "input": "EOF",
+        "targetState": "END"
+      }
+    ]
+  }
+}

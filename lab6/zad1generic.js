@@ -3,75 +3,52 @@
 
 const readline = require('readline');
 const fs = require('fs');
-const _ = require('lodash');
+const State = require('./BaseState');
+const Fsm = require('./Fsm');
 
-const STATE = {
-  START: 'START',
-  END: 'END',
-  ERR: 'ERR'
-};
 const EOF = 'EOF';
-const FSM = JSON.parse(fs.readFileSync('zad2_fsm.json', 'utf-8'));
-
-let state, lexeme, lexemes;
+const States = JSON.parse(fs.readFileSync('zad1_fsm.json', 'utf-8'));
+let fsm = new Fsm(States);
+let lexeme, lexemes;
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-function determineState(char, currentState) {
-  console.log(`state: ${state}(${char})`);
-
-  _.forEach(FSM.states, (state, name) => {
-    if (currentState === name) {
-      state.transitions.forEach((transition) => {
-        let regex = new RegExp(transition.input);
-        if (char.match(regex)) {
-          return transition.targetState;
-        }
-      });
-    }
-  });
-
-  if (currentState === STATE.ERR) {
-    return STATE.ERR;
-  }
-
-  return STATE.ERR;
-}
-
 function parse(input) {
-  state = STATE.START;
+  fsm.reset();
   lexeme = '';
   lexemes = [];
 
   for (let i = 0; i < input.length; i++) {
     let currentChar = input.charAt(i);
-    state = determineState(currentChar, state);
+    fsm.doTransition(currentChar);
 
-    if (state === STATE.START) {
+    if (fsm.state === State.START) {
+      fsm.doTransition(currentChar);
       if (lexeme !== '') {
         lexemes.push(lexeme);
+        lexeme = '';
       }
     }
-    if (state === STATE.ERR) {
+    if (fsm.state === State.ERR) {
       break;
     }
     lexeme += currentChar;
     // console.log('currentChar: ' + currentChar);
     // console.log('lexeme: ' + lexeme);
   }
-  state = determineState(EOF, state);
-  console.log('state: ' + state);
+  fsm.doTransition(EOF);
+  console.log('state: ' + fsm.state);
 
-  if (state === STATE.END) {
+  if (fsm.state === State.END) {
     lexemes.push(lexeme);
   }
 
   printLexemes(lexemes);
 
-  if (state !== STATE.END) {
+  if (fsm.state !== State.END) {
     console.log('> wrong input');
   }
 }
