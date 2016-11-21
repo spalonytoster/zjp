@@ -7,7 +7,7 @@ const State = require('./BaseState');
 const Fsm = require('./Fsm');
 
 const EOF = 'EOF';
-const States = JSON.parse(fs.readFileSync('zad1.json', 'utf-8'));
+const States = JSON.parse(fs.readFileSync('zad2.json', 'utf-8'));
 let fsm = new Fsm(States);
 let lexeme, lexemes;
 
@@ -55,7 +55,14 @@ function parse(input) {
 
 function printLexemes(lexemes) {
   lexemes.forEach((lexeme) => {
-    console.log('> leks: ' + lexeme);
+    let gender = '';
+    if (lexeme.charAt(lexeme.length-1) === 'a') {
+      gender = 'kobieta';
+    }
+    else {
+      gender = 'mężczyzna';
+    }
+    console.log(`> ${gender}: ${lexeme}`);
   });
 }
 

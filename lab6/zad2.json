@@ -1,0 +1,144 @@
+{
+  "START": {
+    "transitions": [
+      {
+        "input": "a",
+        "targetState": "A"
+      }, {
+        "input": "k",
+        "targetState": "K"
+      }
+    ]
+  },
+  "A": {
+    "transitions": [
+      {
+        "input": "s",
+        "targetState": "AS"
+      }, {
+        "input": "d",
+        "targetState": "AD"
+      }
+    ]
+  },
+  "AS": {
+    "transitions": [
+      {
+        "input": "i",
+        "targetState": "ASI"
+      }
+    ]
+  },
+  "ASI": {
+    "transitions": [
+      {
+        "input": "a",
+        "targetState": "ASIA"
+      }
+    ]
+  },
+  "ASIA": {
+    "transitions": [
+      {
+        "input": "[a-z]",
+        "targetState": "START"
+      }, {
+        "input": "EOF",
+        "targetState": "END"
+      }
+    ]
+  },
+  "AD": {
+    "transitions": [
+      {
+        "input": "a",
+        "targetState": "ADA"
+      }
+    ]
+  },
+  "ADA": {
+    "transitions": [
+      {
+        "input": "m",
+        "targetState": "ADAM"
+      }, {
+        "input": "[a-l]|[n-z]",
+        "targetState": "START"
+      }, {
+        "input": "EOF",
+        "targetState": "END"
+      }
+    ]
+  },
+  "ADAM": {
+    "transitions": [
+      {
+        "input": "[a-z]",
+        "targetState": "START"
+      }, {
+        "input": "EOF",
+        "targetState": "END"
+      }
+    ]
+  },
+  "K": {
+    "transitions": [
+      {
+        "input": "a",
+        "targetState": "KA"
+      }
+    ]
+  },
+  "KA": {
+    "transitions": [
+      {
+        "input": "s",
+        "targetState": "AS"
+      }, {
+        "input": "m",
+        "targetState": "KAM"
+      }
+    ]
+  },
+  "KAM": {
+    "transitions": [
+      {
+        "input": "i",
+        "targetState": "KAMI"
+      }
+    ]
+  },
+  "KAMI": {
+    "transitions": [
+      {
+        "input": "l",
+        "targetState": "KAMIL"
+      }
+    ]
+  },
+  "KAMIL": {
+    "transitions": [
+      {
+        "input": "a",
+        "targetState": "KAMILA"
+      }, {
+        "input": "EOF",
+        "targetState": "END"
+      }, {
+        "input": "[b-z]",
+        "targetState": "START"
+      }
+    ]
+  },
+  "KAMILA": {
+    "transitions": [
+      {
+        "input": "[a-z]",
+        "targetState": "START"
+      }, {
+        "input": "EOF",
+        "targetState": "END"
+      }
+    ]
+  }
+}
