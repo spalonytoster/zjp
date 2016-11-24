@@ -1,5 +1,7 @@
 package com.ug.mposluszny.zjp;
 
+import com.ug.mposluszny.zjp.parsers.Parser;
+
 import java.util.Scanner;
 
 public class Interpreter {
@@ -15,17 +17,11 @@ public class Interpreter {
         System.out.println("enter input:");
 
         while (true) {
-            System.out.print("> ");
             String input, result;
+            System.out.print("> ");
             input = scanner.next();
-            result = parser.parse(input);
+            result = parser.parse(input).toString();
             System.out.println(result);
         }
-    }
-
-    public static void main(String[] args) {
-        Parser parser = new DescendingParser();
-        Interpreter interpreter = new Interpreter(parser);
-        interpreter.run();
     }
 }
