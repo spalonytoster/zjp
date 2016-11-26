@@ -3,7 +3,7 @@ package com.ug.mposluszny.zjp.parsers;
 import com.ug.mposluszny.zjp.parsers.model.Grammar;
 import com.ug.mposluszny.zjp.parsers.model.ParsingResult;
 
-public class DescendingParser implements Parser {
+public class DescendingParser extends Parser {
 
     private Grammar grammar;
 

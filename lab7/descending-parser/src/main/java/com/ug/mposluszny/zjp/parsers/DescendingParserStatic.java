@@ -4,22 +4,10 @@ import com.ug.mposluszny.zjp.parsers.model.NonTerminal;
 import com.ug.mposluszny.zjp.parsers.model.ParsingResult;
 import com.ug.mposluszny.zjp.parsers.model.Tree;
 
-public class DescendingParserStatic implements Parser {
+public class DescendingParserStatic extends Parser {
 
-    private String input;
-    private int index;
-    private Tree tree;
     private static NonTerminal S = new NonTerminal("S");
     private static NonTerminal B = new NonTerminal("B");
-
-    public DescendingParserStatic() {
-        init();
-    }
-
-    private void init() {
-        index = -1;
-        tree = new Tree(S);
-    }
 
     public ParsingResult parse(String input) {
         init();
@@ -30,22 +18,6 @@ public class DescendingParserStatic implements Parser {
         if (resultS.isSuccess() && checkWholeInputParsed()) {
             return resultS;
         }
-        return new ParsingResult(false, null);
-    }
-
-    private void backtrack() {
-        index--;
-    }
-
-    private boolean checkWholeInputParsed() {
-        return index == input.length()-1;
-    }
-
-    private ParsingResult checkTerminal(char terminal) {
-        if (index < input.length()-1 && terminal == input.charAt(++index)) {
-            return new ParsingResult(true, new Tree(terminal));
-        }
-        backtrack();
         return new ParsingResult(false, null);
     }
 
