@@ -1,7 +1,7 @@
 package com.ug.mposluszny.zjp.parsers;
 
-import com.ug.mposluszny.zjp.parsers.utils.Grammar;
-import com.ug.mposluszny.zjp.parsers.utils.Tree;
+import com.ug.mposluszny.zjp.parsers.model.Grammar;
+import com.ug.mposluszny.zjp.parsers.model.ParsingResult;
 
 public class DescendingParser implements Parser {
 
@@ -11,7 +11,7 @@ public class DescendingParser implements Parser {
         this.grammar = grammar;
     }
 
-    public Tree parse(String input) {
+    public ParsingResult parse(String input) {
         return null;
     }
 

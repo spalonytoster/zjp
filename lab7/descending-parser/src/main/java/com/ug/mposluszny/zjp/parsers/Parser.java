@@ -1,7 +1,7 @@
 package com.ug.mposluszny.zjp.parsers;
 
-import com.ug.mposluszny.zjp.parsers.utils.Tree;
+import com.ug.mposluszny.zjp.parsers.model.ParsingResult;
 
 public interface Parser {
-    Tree parse(String input);
+    ParsingResult parse(String input);
 }

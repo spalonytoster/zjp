@@ -2,8 +2,8 @@ package com.ug.mposluszny.zjp.parsers;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class DescendingParserStaticTest {
 
@@ -11,14 +11,16 @@ public class DescendingParserStaticTest {
 
     @Test
     public void parserTest() {
-        assertNotNull(parser.parse("abecd"));
-        assertNotNull(parser.parse("aabecdd"));
-        assertNotNull(parser.parse("aabbeccdd"));
-        assertNotNull(parser.parse("aaabbeccddd"));
+        // is accepted by grammar
+        assertTrue(parser.parse("abecd").isSuccess());
+        assertTrue(parser.parse("aabecdd").isSuccess());
+        assertTrue(parser.parse("aabbeccdd").isSuccess());
+        assertTrue(parser.parse("aaabbeccddd").isSuccess());
 
-        assertNull(parser.parse("aaabecdd"));
-        assertNull(parser.parse("abeccd"));
-        assertNull(parser.parse("abbecd"));
-        assertNull(parser.parse("abeecd"));
+        // is NOT accepted by grammar
+        assertFalse(parser.parse("aaabecdd").isSuccess());
+        assertFalse(parser.parse("abeccd").isSuccess());
+        assertFalse(parser.parse("abbecd").isSuccess());
+        assertFalse(parser.parse("abeecd").isSuccess());
     }
 }

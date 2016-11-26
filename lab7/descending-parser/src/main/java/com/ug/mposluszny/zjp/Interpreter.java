@@ -17,10 +17,15 @@ public class Interpreter {
         System.out.println("enter input:");
 
         while (true) {
-            String input, result;
+            String input;
+            Object result;
             System.out.print("> ");
             input = scanner.next();
-            result = parser.parse(input).toString();
+            result = parser.parse(input);
+            if (result == null) {
+                System.out.println("Error.");
+                continue;
+            }
             System.out.println(result);
         }
     }

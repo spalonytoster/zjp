@@ -1,4 +1,4 @@
-package com.ug.mposluszny.zjp.parsers.utils;
+package com.ug.mposluszny.zjp.parsers.model;
 
 import java.util.Map;
 
