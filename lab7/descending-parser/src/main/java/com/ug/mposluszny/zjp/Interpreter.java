@@ -1,6 +1,7 @@
 package com.ug.mposluszny.zjp;
 
 import com.ug.mposluszny.zjp.parsers.Parser;
+import com.ug.mposluszny.zjp.parsers.model.ParsingResult;
 
 import java.util.Scanner;
 
@@ -18,7 +19,7 @@ public class Interpreter {
 
         while (true) {
             String input;
-            Object result;
+            ParsingResult result;
             System.out.print("> ");
             input = scanner.next();
             result = parser.parse(input);
@@ -26,7 +27,7 @@ public class Interpreter {
                 System.out.println("Error.");
                 continue;
             }
-            System.out.println(result);
+            System.out.println(result.getTree());
         }
     }
 }

@@ -13,20 +13,15 @@ public class Tree {
         this.children = new ArrayList<>();
     }
 
-    public Tree(Object root, List<Tree> children) {
-        this.root = root;
-        this.children = children;
-    }
-
     public void addChild(Tree child) {
         children.add(child);
     }
 
-    public boolean isNonTerminal() {
+    private boolean isNonTerminal() {
         return root instanceof NonTerminal;
     }
 
-    public boolean isLeaf() {
+    private boolean isLeaf() {
         return children.isEmpty();
     }
 
@@ -34,7 +29,38 @@ public class Tree {
         return root;
     }
 
-    public List<Tree> getChildren() {
-        return children;
+    @Override
+    public String toString() {
+        String result = "";
+        result += printRoot();
+        result += "\n";
+        result += printChildren();
+        return result;
+    }
+
+    private String printRoot() {
+        if (isLeaf()) {
+            return root.toString();
+        }
+        else if (isNonTerminal()) {
+            return "<" + root.toString() + ">";
+        }
+        return "err";
+    }
+
+    private String printChildren() {
+        if (children.isEmpty()) return null;
+        StringBuilder result = new StringBuilder();
+        StringBuilder childrenStr = new StringBuilder();
+        children.stream().forEach(child -> {
+            result.append(child.printRoot());
+            result.append(" ");
+            if (child.isNonTerminal()) {
+                childrenStr.append(child.printChildren());
+            }
+        });
+        result.append("\n");
+        result.append(childrenStr);
+        return result.toString();
     }
 }
