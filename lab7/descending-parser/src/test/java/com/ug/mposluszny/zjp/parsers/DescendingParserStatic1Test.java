@@ -5,9 +5,9 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class DescendingParserStaticTest {
+public class DescendingParserStatic1Test {
 
-    private Parser parser = new DescendingParserStatic();
+    private Parser parser = new DescendingParserStatic1();
 
     @Test
     public void parserTest() {

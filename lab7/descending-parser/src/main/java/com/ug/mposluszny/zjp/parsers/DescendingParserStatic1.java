@@ -4,7 +4,7 @@ import com.ug.mposluszny.zjp.parsers.model.NonTerminal;
 import com.ug.mposluszny.zjp.parsers.model.ParsingResult;
 import com.ug.mposluszny.zjp.parsers.model.Tree;
 
-public class DescendingParserStatic extends Parser {
+public class DescendingParserStatic1 extends Parser {
 
     private static NonTerminal S = new NonTerminal("S");
     private static NonTerminal B = new NonTerminal("B");

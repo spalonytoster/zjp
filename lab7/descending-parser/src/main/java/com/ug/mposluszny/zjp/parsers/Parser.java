@@ -27,10 +27,14 @@ public abstract class Parser {
     }
 
     ParsingResult checkTerminal(char terminal) {
-        if (index < input.length()-1 && terminal == input.charAt(++index)) {
-            return new ParsingResult(true, new Tree(terminal));
+        if (index < input.length()-1) {
+            if (terminal == input.charAt(++index)) {
+                return new ParsingResult(true, new Tree(terminal));
+            }
+            else {
+                backtrack();
+            }
         }
-        backtrack();
         return new ParsingResult(false, null);
     }
 
