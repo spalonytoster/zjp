@@ -25,10 +25,6 @@ public class Tree {
         return children.isEmpty();
     }
 
-    public Object getRoot() {
-        return root;
-    }
-
     @Override
     public String toString() {
         String result = "";
@@ -43,7 +39,7 @@ public class Tree {
             return root.toString();
         }
         else if (isNonTerminal()) {
-            return "<" + root.toString() + ">";
+            return root.toString();
         }
         return "err";
     }
