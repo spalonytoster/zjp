@@ -27,31 +27,26 @@ public class DescendingParserStatic3 extends Parser {
 
         ParsingResult resultB = checkB();
         if (resultB.isSuccess()) {
+            tree.addChild(resultB.getTree());
             ParsingResult resultPlus;
-            ParsingResult resultInnerB = null;
+            ParsingResult resultInnerB;
             do {
                 resultPlus = checkTerminal('+');
                 if (resultPlus.isSuccess()) {
                     resultInnerB = checkB();
                     if (resultInnerB.isSuccess()) {
-                        tree.addChild(resultB.getTree());
                         tree.addChild(resultPlus.getTree());
                         tree.addChild(resultInnerB.getTree());
                     }
-                    /*
-                     *  jeżeli w części otoczonej klamerkami dostaniemy plus a potem się
-                     *  coś wywali to wiemy, że input był niepoprawny, więc należy
-                     *  zwrócić negatywny wynik parsowania całej produkcji
-                     */
-                    else {
-                        return new ParsingResult(false, null);
-                    }
                 }
                 else {
-                    tree.addChild(resultB.getTree());
+                    resultInnerB = new ParsingResult(false, null);
                 }
             } while(resultPlus.isSuccess() && resultInnerB.isSuccess());
-            return new ParsingResult(true, tree);
+            if ((!resultPlus.isSuccess() && !resultInnerB.isSuccess()) ||
+                    resultPlus.isSuccess() && resultInnerB.isSuccess()) {
+                return new ParsingResult(true, tree);
+            }
         }
         return new ParsingResult(false, null);
     }
