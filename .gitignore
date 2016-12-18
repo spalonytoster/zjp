@@ -32,7 +32,5 @@
 *.dSYM/
 *.su
 
-*.txt
-
 ########### Node #############
 node_modules
