@@ -79,23 +79,6 @@ console.log('------------------');
 // reset data
 ctx = {}; params = [];
 
-// referential gcd algorithm
-function gcd(a,b) {
-  if (b === 0) return a;
-  else return gcd(b, a % b);
-}
-
-// refactored to iteration instead of recursion
-function gcdIter(a, b) {
-  let temp;
-  while (b !== 0) {
-    temp = a;
-    a = b;
-    b = temp % b;
-  }
-  return a;
-}
-
 // representative example
 ctx.a = 175;
 ctx.b = 105;
