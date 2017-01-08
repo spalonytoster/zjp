@@ -7,10 +7,10 @@
 int main() {
 
   typedef struct {
-    double a;
-    char b[10][15];
-    int c[12];
-  } QQ;
+    double a; // 8 byte
+    char b[10][15]; // 10 * 15 * 1 + 2 = 152 byte (150 to niepełny blok wiec dokładamy 2 bajty)
+    int c[12]; // 12 * 4 = 48 byte
+  } QQ; // 208 byte
 
   QQ a[10][100][20];
 
@@ -24,7 +24,7 @@ int main() {
 
   // a)
   start = address;
-  end = address + ((0*100 + 0) * 20 + 0 + 1) * structSize;
+  end = address + ((0*100 + 0) * 20 + 0) * structSize;
   printf("tab[0][0][0]: %d-%d\n", start, end);
 
   // b)
